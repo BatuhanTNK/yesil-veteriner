@@ -2,11 +2,26 @@
 
 Third-party photos, fonts and libraries used by `index.html`.
 
+## Yeşil Veteriner Instagram photos
+
+Six photos selected from the clinic's public [@yesilveteriner profile](https://www.instagram.com/yesilveteriner/) at the project owner's request on 2026-10-23. These are clinic-account materials, not Unsplash or MIT-licensed assets. Copyright remains with the respective rights holders.
+
+The public profile previews are stored locally as JPEG files (480–640 px) so the site does not depend on expiring Instagram CDN URLs. No AI-generated replacements or retouching were applied.
+
+| Local file | Subject | Source post |
+|---|---|---|
+| `yesil-beyaz-kedi.jpg` | White cat | https://www.instagram.com/yesilveteriner/p/Cs_Rf97NnTT/ |
+| `yesil-bandanali-kopek.jpg` | White dog with a blue bandana | https://www.instagram.com/yesilveteriner/p/DFGMHEwtOEX/ |
+| `yesil-gri-kedi.jpg` | Grey tabby cat | https://www.instagram.com/yesilveteriner/p/CwLaFD9rZUx/ |
+| `yesil-uzun-tuylu-kedi.jpg` | Long-haired cat | https://www.instagram.com/yesilveteriner/p/Cs_PyKwNHBr/ |
+| `yesil-takip-kedi.jpg` | Grey and white cat with a shaved patch | https://www.instagram.com/yesilveteriner/p/Cs_PPOTtsUm/ |
+| `yesil-rontgen.jpg` | Veterinary radiograph | https://www.instagram.com/yesilveteriner/p/CwI15dILxN5/ |
+
 ## Photos (Unsplash License)
 
-Loaded from images.unsplash.com. Free to use under the [Unsplash License](https://unsplash.com/license); not covered by this template's MIT license. The photographer of each photo is shown on its Unsplash page (`https://unsplash.com/photos/<id>`, where `<id>` is the part after `photo-` in the image URL inside `index.html`).
+The remaining bird, hamster and rabbit illustrations are loaded from images.unsplash.com. Free to use under the [Unsplash License](https://unsplash.com/license); not covered by this template's MIT license. The photographer of each photo is shown on its Unsplash page (`https://unsplash.com/photos/<id>`, where `<id>` is the part after `photo-` in the image URL inside `index.html`).
 
-Most of the cat photos come from the original template (see https://github.com/8bsite/pet-boarding-website-template/blob/main/CREDITS.md). Photos added for Yeşil Veteriner:
+The original template's photo credits remain available at https://github.com/8bsite/pet-boarding-website-template/blob/main/CREDITS.md. Historical stock-photo list from the first version (cat and dog photos were replaced with the Instagram photos above):
 
 | Photo ID (image URL) | Subject | Used in |
 |---|---|---|
