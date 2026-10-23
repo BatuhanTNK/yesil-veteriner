@@ -2,6 +2,10 @@
 
 Third-party photos, fonts and libraries used by `index.html`.
 
+## Clinic information
+
+The public [@yesilveteriner Instagram profile](https://www.instagram.com/yesilveteriner/) lists veterinarian Samet İşçimen and the clinic telephone 0262 373 23 13 (checked 2026-10-23). The site uses the name and veterinarian role; no graduation, specialty or experience claims were inferred. The name and clinic also appear in the [Ministry of Agriculture and Forestry's licensed clinic list](https://www.tarimorman.gov.tr/GKGM/Belgeler/DB_Hayvan_Sagligi/temp/ruhsatli_ozel_klinikler.pdf), dated 2024-01-02.
+
 ## Yeşil Veteriner Instagram photos
 
 Six photos selected from the clinic's public [@yesilveteriner profile](https://www.instagram.com/yesilveteriner/) at the project owner's request on 2026-10-23. These are clinic-account materials, not Unsplash or MIT-licensed assets. Copyright remains with the respective rights holders.
