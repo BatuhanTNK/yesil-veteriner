@@ -275,6 +275,8 @@ textarea.m-field__input { min-height: 104px; resize: vertical; }
   @keyframes op-sway { from { transform: rotate(-10deg); } to { transform: rotate(10deg); } }
 
   @media (max-width: 767.98px) {
+    /* Keep the first screen still so its main content can paint immediately. */
+    #opening .op-grid .op-panel, #opening .op-photo img { animation: none; }
     #opening .op-s1 { height: auto; min-height: 100svh; padding-top: calc(56px + var(--space-1)); }
     #opening .op-grid { height: auto; min-height: calc(100svh - 56px - 2 * var(--space-1)); grid-template-columns: repeat(6, minmax(0, 1fr)); grid-template-rows: auto minmax(190px, 1fr) auto auto; }
     #opening .op-title { font-size: clamp(40px, 12.4vw, 60px); }
