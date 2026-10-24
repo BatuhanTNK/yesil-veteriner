@@ -619,7 +619,14 @@ textarea.m-field__input { min-height: 104px; resize: vertical; }
   #contact .ct-map iframe { width: 100%; height: clamp(280px, 38vw, 420px); border: 0; background: var(--color-6); }
   #contact .ct-map-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; }
   #contact .ct-status { width: 100%; font-size: 16px; line-height: 1.5; }
+  #contact .ct-status[data-state="error"] { border-left: 3px solid #8d241f; padding-left: 12px; }
+  #contact .ct-status[data-state="success"] { border-left: 3px solid var(--color-4); padding-left: 12px; }
+  #contact .ct-send button:disabled { opacity: .7; cursor: default; }
+  #contact form[aria-busy="true"] .ct-send button { cursor: wait; }
+  #contact .ct-send button:disabled .m-btn__label { pointer-events: none; }
+  #contact .ct-trap { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
   #contact .ct-whatsapp-link { font-weight: 600; }
+  #contact .ct-whatsapp-link:not([hidden]) { display: inline-block; padding-block: 10px; }
   .dy-hour .service-detail { display: inline-flex; align-items: center; min-height: 44px; font-size: 16px; }
   .mobile-actions { display: none; }
   @media (max-width: 767.98px) {
@@ -1029,7 +1036,7 @@ textarea.m-field__input { min-height: 104px; resize: vertical; }
     </div>
     <div class="followup-panel m-surface-4">
       <h3 class="m-text-6">Hatırlatma ister misiniz?</h3>
-      <p class="m-text">Formdaki isteğe bağlı kutuyu işaretlerseniz kontrol zamanı için iletişim tercihiniz WhatsApp mesajına eklenir. Kliniğimizle zamanı ve uygun iletişim kanalını birlikte netleştirebilirsiniz.</p>
+      <p class="m-text">Formdaki isteğe bağlı kutuyu işaretlerseniz kontrol zamanı için iletişim tercihiniz talebinizle birlikte kaydedilir. Kliniğimizle zamanı ve uygun iletişim kanalını birlikte netleştirebilirsiniz.</p>
       <p class="m-text">Randevu tarihi klinik tarafından onaylanır. Bu form otomatik hatırlatma göndermez.</p>
     </div>
   </div>
@@ -1064,11 +1071,11 @@ textarea.m-field__input { min-height: 104px; resize: vertical; }
       </details>
       <details class="fq-item m-surface-4">
         <summary class="m-text-6">Kontrol randevusunu nasıl isteyebilirim?</summary>
-        <p class="m-text fq-a">Formda “Kontrol randevusu” seçin; dostunuzun adını, varsa önceki ziyaret tarihini ve kontrol konusunu not edin. WhatsApp'ta mesajınızı gönderdikten sonra uygun gün ve saati klinikle netleştirin.</p>
+        <p class="m-text fq-a">Formda “Kontrol randevusu” seçin; dostunuzun adını, varsa önceki ziyaret tarihini ve kontrol konusunu not edin. Talebinizi gönderdikten sonra uygun gün ve saati klinikle netleştirin.</p>
       </details>
       <details class="fq-item m-surface-4">
         <summary class="m-text-6">Formu doldurunca randevum kesinleşir mi?</summary>
-        <p class="m-text fq-a">Form, bilgilerinizi içeren hazır bir WhatsApp mesajı açar. Mesajı sizin göndermeniz gerekir; randevu, klinik gün ve saati onayladığında kesinleşir. Acil durumlarda form yanıtını beklemeden arayın.</p>
+        <p class="m-text fq-a">Form, randevu talebinizi kliniğin sistemine kaydeder. “Talebiniz alındı” mesajı kaydı doğrular; randevu, klinik gün ve saati onayladığında kesinleşir. Acil durumlarda form yanıtını beklemeden arayın.</p>
       </details>
     </div>
   </div>
@@ -1096,21 +1103,23 @@ textarea.m-field__input { min-height: 104px; resize: vertical; }
     <div class="ct-form m-surface-4">
       <form action="#" method="post" novalidate>
         <h2 id="contact-title" class="m-text-3">Randevu talep et</h2>
-        <p class="m-text ct-intro" id="appointment-help">Bilgilerinizle hazır bir WhatsApp mesajı açılır. Mesajı gönderdikten sonra gün ve saati klinikle netleştirebilirsiniz. Acil bir durum varsa <a class="m-link" href="tel:+905342000838">hemen arayın</a>.</p>
+        <p class="m-text ct-intro" id="appointment-help">Talebinizi gönderin; klinik uygun gün ve saati netleştirmek için sizinle iletişime geçsin. Acil bir durum varsa <a class="m-link" href="tel:+905342000838">hemen arayın</a>.</p>
+        <label class="ct-trap" aria-hidden="true">Web sitesi<input name="website" type="text" tabindex="-1" autocomplete="off"></label>
         <label class="m-field ct-wide"><span class="m-field__label">Randevu türü</span><select class="m-field__input" name="appointment" aria-describedby="appointment-help"><option>Genel randevu</option><option>Kontrol randevusu</option></select></label>
-        <label class="m-field"><span class="m-field__label">Adınız soyadınız</span><input class="m-field__input" name="name" type="text" autocomplete="name" required></label>
-        <label class="m-field"><span class="m-field__label">Telefon</span><input class="m-field__input" name="phone" type="tel" autocomplete="tel" inputmode="tel" required></label>
-        <label class="m-field ct-short"><span class="m-field__label">Dostunuzun adı</span><input class="m-field__input" name="pet" type="text"></label>
+        <label class="m-field"><span class="m-field__label">Adınız soyadınız</span><input class="m-field__input" name="name" type="text" autocomplete="name" minlength="2" maxlength="100" required></label>
+        <label class="m-field"><span class="m-field__label">Telefon</span><input class="m-field__input" name="phone" type="tel" autocomplete="tel" inputmode="tel" minlength="10" maxlength="40" required></label>
+        <label class="m-field ct-short"><span class="m-field__label">Dostunuzun adı</span><input class="m-field__input" name="pet" type="text" maxlength="80"></label>
         <label class="m-field ct-short"><span class="m-field__label">Türü</span><select class="m-field__input" name="species"><option>Kedi</option><option>Köpek</option><option>Kuş</option><option>Kemirgen</option><option>Diğer egzotik</option></select></label>
         <label class="m-field ct-short"><span class="m-field__label">Tercih edilen tarih</span><input class="m-field__input" name="date" type="date"></label>
         <label class="m-field ct-wide"><span class="m-field__label">Hizmet</span><select class="m-field__input" name="service"><option>Muayene</option><option>Aşı</option><option>Cerrahi / kısırlaştırma</option><option>Laboratuvar</option><option>Beslenme danışmanlığı</option><option>Konaklama (hayvan oteli)</option><option>Acil durum</option><option>Diğer / emin değilim</option></select></label>
-        <label class="m-field ct-wide"><span class="m-field__label">Eklemek istedikleriniz</span><textarea class="m-field__input" name="notes" rows="3" aria-describedby="appointment-notes-help"></textarea></label>
+        <label class="m-field ct-wide"><span class="m-field__label">Eklemek istedikleriniz</span><textarea class="m-field__input" name="notes" rows="3" maxlength="1500" aria-describedby="appointment-notes-help"></textarea></label>
         <p class="m-text ct-help" id="appointment-notes-help">Kontrol için önceki ziyaretinizi ve kontrol konusunu; konaklama için giriş ve çıkış tarihlerini yazabilirsiniz.</p>
         <label class="ct-preference"><input name="reminder" type="checkbox" value="requested" aria-describedby="reminder-help"><span>Kontrol zamanı için kliniğin benimle telefon veya WhatsApp üzerinden iletişime geçmesini istiyorum. <small>(İsteğe bağlı)</small></span></label>
-        <p class="m-text ct-help" id="reminder-help">Seçiminiz yalnızca bu talebin WhatsApp mesajına eklenir. Otomatik hatırlatma başlatılmaz; tercihinizi klinikle görüşerek değiştirebilirsiniz.</p>
+        <p class="m-text ct-help" id="reminder-help">Seçiminiz talebinizle birlikte kaydedilir. Otomatik hatırlatma başlatılmaz; tercihinizi klinikle görüşerek değiştirebilirsiniz.</p>
+        <p class="m-text ct-help">Bu formdaki iletişim bilgileriniz, randevu talebinizi yanıtlamak için kliniğin sistemine iletilir.</p>
         <div class="ct-send">
-          <button class="m-btn" type="submit"><span class="m-btn__label">WhatsApp'ta talebi aç</span></button>
-          <p class="m-text ct-status" role="status" hidden>Talebiniz hazır. WhatsApp'ta mesajı gönderin; randevu saati klinik onayından sonra kesinleşir. <a class="m-link ct-whatsapp-link" target="_blank" rel="noopener">WhatsApp açılmadıysa buraya dokunun</a>.</p>
+          <button class="m-btn" type="submit"><span class="m-btn__label">Randevu talebi gönder</span></button>
+          <p class="m-text ct-status" role="status" aria-live="polite" hidden><span class="ct-status-message"></span> <a class="m-link ct-whatsapp-link" target="_blank" rel="noopener" hidden>WhatsApp üzerinden yazın</a></p>
         </div>
         <noscript><p class="m-text ct-help">Randevu talebi için <a href="tel:+905342000838">0534 200 08 38</a> numarasını arayabilir veya <a href="https://wa.me/905342000838">WhatsApp'tan yazabilirsiniz</a>.</p></noscript>
       </form>
@@ -1224,55 +1233,8 @@ textarea.m-field__input { min-height: 104px; resize: vertical; }
   }).observe(screen);
 })();
 </script>
-<script data-8b-part="section-script:contact">
-(() => {
-  // Randevu talebi, ziyaretçinin kendi WhatsApp'ında hazır bir mesaj olarak açılır.
-  const WHATSAPP = '905342000838';
-  const form = document.querySelector('#contact form');
-  const status = form.querySelector('.ct-status');
-  const fallback = form.querySelector('.ct-whatsapp-link');
-  const params = new URLSearchParams(window.location.search);
-  const choose = (name, value) => {
-    const field = form.elements[name];
-    if (Array.from(field.options).some(option => option.value === value)) {
-      field.value = value;
-      status.hidden = true;
-    }
-  };
-  if (params.has('hizmet')) choose('service', params.get('hizmet'));
-  if (params.get('randevu') === 'kontrol') choose('appointment', 'Kontrol randevusu');
-  document.querySelectorAll('[data-appointment]').forEach(link => {
-    link.addEventListener('click', () => choose('appointment', link.dataset.appointment));
-  });
-  const today = new Date();
-  const minimumDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-  form.elements.date.min = minimumDate;
-  form.addEventListener('input', () => { status.hidden = true; });
-  form.addEventListener('submit', event => {
-    event.preventDefault();
-    if (!form.checkValidity()) { form.reportValidity(); return; }
-    const v = name => (form.elements[name]?.value || '').trim();
-    const date = v('date') ? v('date').split('-').reverse().join('.') : '';
-    const lines = [
-      'Merhaba, Yeşil Veteriner web sitesinden randevu talebi:',
-      `Randevu türü: ${v('appointment')}`,
-      `Ad soyad: ${v('name')}`,
-      `Telefon: ${v('phone')}`,
-      `Dostumuz: ${v('pet') || '-'} (${v('species')})`,
-      `Hizmet: ${v('service')}`,
-      `Tercih edilen tarih: ${date || '-'}`
-    ];
-    if (v('notes')) lines.push(`Not: ${v('notes')}`);
-    lines.push(form.elements.reminder.checked
-      ? 'Kontrol hatırlatma tercihi: Kontrol zamanı için telefon veya WhatsApp üzerinden benimle iletişime geçilmesini istiyorum.'
-      : 'Kontrol hatırlatma tercihi: Bu talepte hatırlatma istemiyorum.');
-    const url = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(lines.join('\n'))}`;
-    fallback.href = url;
-    window.open(url, '_blank', 'noopener');
-    status.hidden = false;
-  });
-})();
-</script>
+<script src="supabase-config.js" defer></script>
+<script src="appointment-form.js" defer data-8b-part="section-script:contact"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
